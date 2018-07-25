@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Aquarius Finder</string>
+    <string name="todo">TODO</string>
+    <string name="resultados_da_pesquisa">Resultados da pesquisa:</string>
+    <string name="logo">LOGO</string>
+    <string name="digite_palavra_a_ser_pesquisada">digite a palavra a ser pesquisada</string>
+    <string name="space" />
+    <string name="tit_resultado">Resultados da pesquisa:</string>
+</resources>
