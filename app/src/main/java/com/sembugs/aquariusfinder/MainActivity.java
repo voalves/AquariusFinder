@@ -147,7 +147,7 @@ public class MainActivity extends AppCompatActivity {
             rvResultados.setLayoutManager(layoutManager);
             // Adiciona o adapter que irá anexar os objetos à lista.
             // Está sendo criado com lista vazia, pois será preenchida posteriormente.
-            mAdapter = new LineAdapter(new ArrayList<>(0));
+            mAdapter = new LineAdapter(new ArrayList<>(0),this);
             rvResultados.setAdapter(mAdapter);
 
             // Configurando um dividr entre linhas, para uma melhor visualização.

@@ -1,9 +1,14 @@
 package com.sembugs.aquariusfinder.modelos;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
+import android.content.Context;
+
 
 import com.sembugs.aquariusfinder.R;
 
@@ -13,10 +18,13 @@ import java.util.List;
 public class LineAdapter extends RecyclerView.Adapter<LineHolder> {
 
     private List<Morador> mMoradores;
+    private Context mContext;
 
 
-    public LineAdapter(ArrayList moradores) {
+    public LineAdapter(ArrayList moradores, Context contexto) {
+
         mMoradores = moradores;
+        mContext = contexto;
     }
 
     @Override
@@ -26,7 +34,7 @@ public class LineAdapter extends RecyclerView.Adapter<LineHolder> {
     }
 
     @Override
-    public void onBindViewHolder(LineHolder holder, int position) {
+    public void onBindViewHolder(final LineHolder holder, final int position) {
         if (mMoradores.get(position).getsEmail()!="PLACA") {
             holder.txt_unidade.setText(Integer.toString(mMoradores.get(position).getiUnidade()));
             holder.txt_nome.setText(mMoradores.get(position).getsNome());
@@ -47,6 +55,18 @@ public class LineAdapter extends RecyclerView.Adapter<LineHolder> {
             holder.btn_phone.setVisibility(View.INVISIBLE);
 
         }
+
+        holder.btn_phone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String text_telefone;
+                text_telefone = "tel:" + holder.txt_telefone.getText();
+                //Toast.makeText(mContext.getApplicationContext(),text,Toast.LENGTH_SHORT).show();
+                Uri uri = Uri.parse(text_telefone);
+                Intent intent = new Intent(Intent.ACTION_DIAL,uri);
+                mContext.startActivity(intent);
+            }
+        });
     }
 
     @Override
