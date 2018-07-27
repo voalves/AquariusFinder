@@ -103,7 +103,7 @@ public class BancoDeDados extends SQLiteOpenHelper {
         mSQLiteDatabase.close();
         //Toast.makeText(this,"registros encontrados",Toast.LENGTH_LONG).show();
 
-        Toast.makeText(mContext.getApplicationContext(),quantidade_registros+" registro(s) encontrado(s)", Toast.LENGTH_LONG).show();
+        Toast.makeText(mContext.getApplicationContext(),quantidade_registros+" registro(s) encontrado(s)", Toast.LENGTH_SHORT).show();
         return listMorador;
     }
 }

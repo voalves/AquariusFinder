@@ -1,9 +1,15 @@
 package com.sembugs.aquariusfinder.modelos;
 
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
+import android.telephony.PhoneNumberUtils;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
@@ -41,9 +47,11 @@ public class LineAdapter extends RecyclerView.Adapter<LineHolder> {
             if (mMoradores.get(position).getsTel2().length()>0){
                 holder.txt_telefone.setText(mMoradores.get(position).getsTel2());
                 holder.btn_phone.setVisibility(View.VISIBLE);
+                holder.btn_whatsapp.setVisibility(View.VISIBLE);
             } else {
                 holder.txt_telefone.setText("");
                 holder.btn_phone.setVisibility(View.INVISIBLE);
+                holder.btn_whatsapp.setVisibility(View.INVISIBLE);
             }
             holder.txt_email.setText(mMoradores.get(position).getsEmail());
 
@@ -53,6 +61,7 @@ public class LineAdapter extends RecyclerView.Adapter<LineHolder> {
             holder.txt_telefone.setText("Moradores: "+mMoradores.get(position).getsTel2());
             holder.txt_email.setText("");
             holder.btn_phone.setVisibility(View.INVISIBLE);
+            holder.btn_whatsapp.setVisibility(View.INVISIBLE);
 
         }
 
@@ -67,6 +76,50 @@ public class LineAdapter extends RecyclerView.Adapter<LineHolder> {
                 mContext.startActivity(intent);
             }
         });
+
+        holder.btn_whatsapp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+
+                    String texto_whatsapp = "Mensagem teste";
+                    String texto_telefone = "5521" + PhoneNumberUtils.stripSeparators(holder.txt_telefone.getText().toString());
+                    //Toast.makeText(mContext.getApplicationContext(), texto_telefone, Toast.LENGTH_SHORT).show();
+
+
+                    //String texto_telefone = "5521994363164";
+                    PackageManager pm = mContext.getPackageManager();
+
+                     try {
+                         PackageInfo info = pm.getPackageInfo("com.whatsapp",PackageManager.GET_META_DATA);
+                         Intent sendIntent = new Intent("android.intent.action.MAIN");
+                         sendIntent.setAction(Intent.ACTION_SEND);
+                         sendIntent.setType("text/plain");
+                         sendIntent.putExtra(Intent.EXTRA_TEXT, texto_whatsapp);
+                         sendIntent.putExtra("jid",texto_telefone + "@s.whatsapp.net"); //phone number without "+" prefix
+                         sendIntent.setPackage("com.whatsapp");
+                         mContext.startActivity(sendIntent);
+
+                } catch (PackageManager.NameNotFoundException e) {
+                    Toast.makeText(mContext.getApplicationContext(), "WhatsApp não instalado!", Toast.LENGTH_SHORT)
+                            .show();
+                }
+
+
+
+/*
+                whatsIntent.putExtra(Intent.EXTRA_TEXT,texto_whatsapp);
+                    whatsIntent.putExtra("jid",holder.txt_telefone.getText()+"@s.whatsapp.net");
+                    whatsIntent.setPackage("com.whatsapp");
+                    //mContext.startActivity(Intent.createChooser(whatsIntent,"Compartilhando"));
+                if (Intent.resolveActivity(getActivity().getPackageManager())==null){
+                    Toast.makeText(mContext,"Whatsapp não instalado!", Toast.LENGTH_LONG).show();
+                    return;
+                }
+                mContext.startActivity(whatsIntent);*/
+            }
+        });
+
     }
 
     @Override

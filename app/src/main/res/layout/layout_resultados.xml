@@ -27,12 +27,27 @@
             android:textAlignment="center"
             android:textSize="18sp"
             android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:orientation="horizontal" >
+
             <ImageButton
-                android:layout_width="20dp"
-                android:layout_height="20dp"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
                 android:id="@+id/bt_phone"
                 android:layout_gravity="center"
                 android:background="@drawable/phone" />
+            <ImageButton
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:id="@+id/bt_whatsapp"
+                android:layout_gravity="center"
+                android:background="@drawable/whatsapp_icon" />
+            </LinearLayout>
+
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
