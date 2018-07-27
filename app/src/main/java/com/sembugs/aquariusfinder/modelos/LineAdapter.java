@@ -1,5 +1,6 @@
 package com.sembugs.aquariusfinder.modelos;
 
+import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
@@ -68,13 +69,14 @@ public class LineAdapter extends RecyclerView.Adapter<LineHolder> {
         holder.btn_phone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String text_telefone;
-                text_telefone = "tel:" + holder.txt_telefone.getText();
-                //Toast.makeText(mContext.getApplicationContext(),text,Toast.LENGTH_SHORT).show();
-                Uri uri = Uri.parse(text_telefone);
+                String texto_telefone = PhoneNumberUtils.stripSeparators(holder.txt_telefone.getText().toString());
+                texto_telefone = "tel:" + texto_telefone.substring(texto_telefone.length()-9,texto_telefone.length());
+                //Toast.makeText(mContext.getApplicationContext(),text_telefone,Toast.LENGTH_SHORT).show();
+                Uri uri = Uri.parse(texto_telefone);
                 Intent intent = new Intent(Intent.ACTION_DIAL,uri);
                 mContext.startActivity(intent);
-            }
+
+               }
         });
 
         holder.btn_whatsapp.setOnClickListener(new View.OnClickListener() {
@@ -82,8 +84,11 @@ public class LineAdapter extends RecyclerView.Adapter<LineHolder> {
             public void onClick(View view) {
 
 
-                    String texto_whatsapp = "Mensagem teste";
-                    String texto_telefone = "5521" + PhoneNumberUtils.stripSeparators(holder.txt_telefone.getText().toString());
+                    String texto_whatsapp = " ";
+                    String texto_telefone = PhoneNumberUtils.stripSeparators(holder.txt_telefone.getText().toString());
+                    texto_telefone = texto_telefone.substring(texto_telefone.length()-9,texto_telefone.length());
+                    texto_telefone = "5521" + texto_telefone;
+
                     //Toast.makeText(mContext.getApplicationContext(), texto_telefone, Toast.LENGTH_SHORT).show();
 
 

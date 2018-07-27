@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.ContextMenu;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -67,6 +68,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        //registerForContextMenu(rvResultados);
+
         /*rvResultados.setOnLongClickListener(  new AdapterView.OnItemLongClickListener() {
 
             @Override
@@ -87,6 +90,32 @@ public class MainActivity extends AppCompatActivity {
 
         });*/
     }
+
+    // here you create the context menu
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v,
+                                    ContextMenu.ContextMenuInfo menuInfo) {
+        menu.add(Menu.NONE, Menu.NONE, Menu.NONE, "MARK");
+        menu.add(Menu.NONE, Menu.NONE, Menu.NONE, "Remove");
+    }
+
+    // This is executed when the user selects an option
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+        switch (item.getItemId()) {
+            case 0:
+                Toast.makeText(this,"item 1",Toast.LENGTH_SHORT).show();
+                return true;
+            case 1:
+                Toast.makeText(this,"item 1",Toast.LENGTH_SHORT).show();
+                return true;
+            default:
+                return super.onContextItemSelected(item);
+        }
+    }
+
+
 
     private void inicializarComponentes() {
         //lvMorador =     (ListView) findViewById(R.id.list_resultados);
